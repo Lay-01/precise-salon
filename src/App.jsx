@@ -9,7 +9,7 @@ const About    = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
 const Contact  = lazy(() => import('./pages/Contact'));
 
-// Minimal loading fallback that matches site background (no flash of white)
+// Minimal loading fallback that matches site background
 const PageFallback = () => (
   <div className="min-h-screen bg-[#0b0b0b]" aria-hidden="true" />
 );
@@ -23,9 +23,12 @@ function ScrollToTop() {
   return null;
 }
 
+// Strip trailing slash from BASE_URL so both /precise-salon and /precise-salon/ work
+const basename = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+
 export default function App() {
   return (
-    <Router basename={import.meta.env.BASE_URL}>
+    <Router basename={basename}>
       <ScrollToTop />
       <div className="min-h-screen flex flex-col bg-[#0b0b0b] text-gray-200">
         <Navbar />
@@ -36,6 +39,8 @@ export default function App() {
               <Route path="/about" element={<About />} />
               <Route path="/services" element={<Services />} />
               <Route path="/contact" element={<Contact />} />
+              {/* Catch-all fallback to Home */}
+              <Route path="*" element={<Home />} />
             </Routes>
           </Suspense>
         </main>
