@@ -13,9 +13,10 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Environment & Editor files
+# Environment, Large Files & Editor files
 .env
 .env.local
+*.pdf
 .vscode
 .idea
 .DS_Store
